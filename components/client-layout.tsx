@@ -74,9 +74,11 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
       }`}
     >
       <AnimatedBackground darkMode={darkMode} />
-      <Header darkMode={darkMode} setDarkMode={setDarkMode} currentPath={pathname} />
-      <main className="container mx-auto px-4 py-8 relative z-10">{children}</main>
-      <Footer darkMode={darkMode} />
+      <div className="relative z-20 flex flex-col justify-evenly h-full">
+        <Header darkMode={darkMode} setDarkMode={setDarkMode} currentPath={pathname} />
+        <main className="container mx-auto px-4 py-8 relative z-10">{children}</main>
+        <Footer  darkMode={darkMode} />
+      </div>
     </div>
   )
 }

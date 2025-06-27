@@ -5,40 +5,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 export default function BlogPage() {
   const blogPosts = [
     {
-      slug: "building-retro-ui",
-      title: "BUILDING_RETRO_UI.MD",
-      description: "How to create pixel-perfect retro interfaces with modern CSS",
-      date: "2024-01-15",
+      slug: "To be made",
+      title: "To be made",
+      description: "To be made",
+      date: "0000-00-00",
       readTime: "8 min",
       tags: ["CSS", "Design", "Retro"],
-      ascii: ["████████", "█ CSS  █", "█ GRID █", "█ FLEX █", "████████"],
-    },
-    {
-      slug: "nextjs-performance",
-      title: "NEXTJS_OPTIMIZATION.MD",
-      description: "Advanced techniques for optimizing Next.js applications",
-      date: "2024-01-10",
-      readTime: "12 min",
-      tags: ["Next.js", "Performance", "React"],
-      ascii: ["⚡⚡⚡⚡⚡⚡", "█ NEXT █", "█ FAST █", "█ PERF █", "⚡⚡⚡⚡⚡⚡"],
-    },
-    {
-      slug: "pixel-art-css",
-      title: "PIXEL_ART_CSS.MD",
-      description: "Creating pixel art and animations using pure CSS",
-      date: "2024-01-05",
-      readTime: "6 min",
-      tags: ["CSS", "Animation", "Art"],
-      ascii: ["▓▓▓▓▓▓▓▓", "▓ ART  ▓", "▓ PIXEL▓", "▓ CSS  ▓", "▓▓▓▓▓▓▓▓"],
-    },
-    {
-      slug: "typescript-tips",
-      title: "TYPESCRIPT_TIPS.MD",
-      description: "Advanced TypeScript patterns for better code quality",
-      date: "2023-12-28",
-      readTime: "10 min",
-      tags: ["TypeScript", "JavaScript", "Tips"],
-      ascii: ["┌──────┐", "│ TS   │", "│ TIPS │", "│ CODE │", "└──────┘"],
+      ascii: ["████████", "█ TO   █", "█  BE  █", "█ MADE █", "████████"],
     },
   ]
 

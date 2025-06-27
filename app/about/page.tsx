@@ -38,7 +38,7 @@ export default function AboutPage() {
         <div className="w-32 h-32 mx-auto mb-6 pixel-avatar bg-current">
           <div className="pixel-face"></div>
         </div>
-        <h2 className="text-4xl md:text-6xl font-bold font-mono mb-4 tracking-wider">HELLO_WORLD</h2>
+        <h2 className="text-4xl md:text-6xl font-bold font-mono mb-4 tracking-wider">HELLO_INTERNET</h2>
         <div className="text-lg md:text-xl font-mono min-h-[2rem]">
           <span>{typewriterText}</span>
           <span className={`${showCursor ? "opacity-100" : "opacity-0"} transition-opacity`}>█</span>

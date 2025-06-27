@@ -8,7 +8,7 @@ export default function ExperiencePage() {
       company: "MATRIX INNOVATION",
       location: "LUCKNOW, UP",
       period: "Dec-2023 - Jan-2025",
-      description: "Leading Design Team, and implementing the Front-End Development goals team and architecting scalable solutions and design systems.",
+      description: "Led design team adn Front-End Dev team to create and maintain design systems for multiple projects, ensuring consistency and scalability across products. ",
       achievements: [
         "> Designed and implemented 3+ scalable design systems",
         "> Led team of 3 designers to create 10+ design systems",
