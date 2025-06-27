@@ -1,0 +1,55 @@
+{
+  "componentDevelopmentChecklist": {
+    "setup": ["Create TypeScript interface for props", "Add to component documentation", "Include in main exports"],
+    "implementation": [
+      "Follow naming conventions (kebab-case for files)",
+      "Use proper TypeScript types",
+      "Implement error boundaries where needed",
+      "Add loading states for async operations"
+    ],
+    "styling": [
+      "Support both light and dark themes",
+      "Use CSS custom properties for dynamic values",
+      "Include hover and focus states",
+      "Add responsive design considerations"
+    ],
+    "performance": [
+      "Use React.memo for expensive components",
+      "Implement proper cleanup in useEffect",
+      "Add performance monitoring where applicable",
+      "Use GPU acceleration for animations"
+    ],
+    "accessibility": [
+      "Add proper ARIA labels and roles",
+      "Ensure keyboard navigation works",
+      "Include screen reader support",
+      "Test with reduced motion preferences"
+    ],
+    "testing": [
+      "Write unit tests for component logic",
+      "Test responsive behavior",
+      "Verify accessibility compliance",
+      "Performance testing for animations"
+    ]
+  },
+  "codeQualityStandards": {
+    "typescript": {
+      "strictMode": true,
+      "noImplicitAny": true,
+      "properInterfaces": true,
+      "exportTypes": true
+    },
+    "react": {
+      "functionalComponents": true,
+      "hooks": "modern patterns",
+      "propValidation": "TypeScript interfaces",
+      "stateManagement": "useState/useReducer"
+    },
+    "css": {
+      "methodology": "BEM-inspired with utility classes",
+      "customProperties": "for dynamic values",
+      "animations": "GPU-accelerated",
+      "responsive": "mobile-first approach"
+    }
+  }
+}
