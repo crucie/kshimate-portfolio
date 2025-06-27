@@ -31,6 +31,7 @@ export default function AboutPage() {
     return () => clearInterval(cursorTimer)
   }, [])
 
+  // build ready! [28/06/2025: 00:18:00 IST]
   return (
     <div className="max-w-4xl mx-auto slide-in">
       <div className="text-center mb-12">
