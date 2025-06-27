@@ -4,49 +4,47 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 export default function ExperiencePage() {
   const experiences = [
     {
-      title: "SENIOR_DEVELOPER.EXE",
-      company: "TechCorp Industries",
-      location: "San Francisco, CA",
-      period: "2022 - Present",
-      description: "Leading full-stack development team and architecting scalable solutions",
+      title: "DESIGN_LEAD.EXE",
+      company: "MATRIX INNOVATION",
+      location: "LUCKNOW, UP",
+      period: "Dec-2023 - Jan-2025",
+      description: "Leading Design Team, and implementing the Front-End Development goals team and architecting scalable solutions and design systems.",
       achievements: [
-        "> Increased application performance by 300%",
-        "> Led team of 8 developers across 3 time zones",
-        "> Implemented CI/CD pipeline reducing deployment time by 80%",
-        "> Mentored 12+ junior developers",
+        "> Designed and implemented 3+ scalable design systems",
+        "> Led team of 3 designers to create 10+ design systems",
+        "> Implemented design system used across 10+ projects",
+        "> Reduced design inconsistencies by 80%",
       ],
-      tech: ["React", "Node.js", "AWS", "Docker", "TypeScript"],
+      tech: ["Figma", "React-Native", "React", "Node.js", "Tailwind CSS", ],
       ascii: ["┌─────────┐", "│ SENIOR  │", "│ █████   │", "│ █████   │", "└─────────┘"],
     },
     {
-      title: "FULLSTACK_DEV.EXE",
-      company: "StartupLab",
-      location: "Austin, TX",
-      period: "2020 - 2022",
+      title: "INDIE_GAMEDEV.EXE",
+      company: "~PERSONAL PROJECTS",
+      location: "REMOTE",
+      period: "March-2021 - Jan-2022",
       description: "Built MVP products from concept to production deployment",
       achievements: [
-        "> Developed 5 successful product launches",
-        "> Reduced server costs by 60% through optimization",
-        "> Built real-time chat system handling 10k+ users",
-        "> Implemented automated testing suite",
+        "> Developed 3+ indie games using Unity and C#",
+        "> Made 2D games with pixel art and animations using Unity",
       ],
-      tech: ["Vue.js", "Python", "PostgreSQL", "Redis", "GCP"],
-      ascii: ["┌─────────┐", "│ FULL    │", "│ STACK   │", "│ ███████ │", "└─────────┘"],
+      tech: ["Unity", "C#", "Blender", "Figma", "Adobe Photoshop", "Adobe Illustrator"],
+      ascii: ["┌─────────┐", "│ GAME    │", "│ DEV     │", "│ ███████ │", "└─────────┘"],
     },
     {
-      title: "FRONTEND_DEV.EXE",
-      company: "DesignStudio",
-      location: "Remote",
-      period: "2018 - 2020",
-      description: "Created pixel-perfect responsive web applications",
+      title: "CHEIF_VIDEO_ANIMATOR.EXE",
+      company: "INTEGRATED_IDEAS",
+      location: "REMOTE",
+        period: "Jul-2019 - October-2019",
+      description: "Created motion graphics and animations for various digital marketing campaigns, enhancing brand visibility and engagement.",
       achievements: [
-        "> Improved user engagement by 150%",
-        "> Built component library used by 20+ projects",
-        "> Optimized bundle size reducing load time by 40%",
-        "> Collaborated with design team on 50+ projects",
+        "> Produced over 5+ high-quality animations",
+        "> created ADs that increased engagement by 40%",
+        "> Collaborated with marketing team to create viral content",
+        "> Streamlined animation workflow, reducing production time by 30%",
       ],
-      tech: ["JavaScript", "SCSS", "Webpack", "Jest", "Figma"],
-      ascii: ["┌─────────┐", "│ FRONT   │", "│ END     │", "│ ████    │", "└─────────┘"],
+      tech: ["Adobe After Effects", "Adobe Premiere Pro", "Adobe Illustrator", "Figma", "Adobe Photoshop", ],
+      ascii: ["┌────────────┐", "│ ANIMATOR   │", "│            │", "│ ████       │", "└────────────┘"],
     },
   ]
 
@@ -84,7 +82,7 @@ export default function ExperiencePage() {
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="md:col-span-2">
-                  <p className="font-mono mb-4 text-muted-foreground">{exp.description}</p>
+                  <div className="font-mono mb-4 text-foreground">{exp.description}</div>
 
                   <div className="mb-4">
                     <h4 className="font-mono text-sm font-bold mb-2 flex items-center gap-2">

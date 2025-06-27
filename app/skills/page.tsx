@@ -4,23 +4,49 @@ import { Card, CardContent } from "@/components/ui/card"
 
 export default function SkillsPage() {
   const skills = [
-    "JAVASCRIPT.JS",
-    "TYPESCRIPT.TS",
-    "REACT.JSX",
-    "NEXT.JS",
-    "NODE.JS",
-    "PYTHON.PY",
-    "CSS.SCSS",
-    "TAILWIND.CSS",
-    "GIT.VCS",
-    "DOCKER.YML",
-    "POSTGRESQL.DB",
-    "MONGODB.JSON",
-    "GRAPHQL.GQL",
-    "AWS.CLOUD",
-    "KUBERNETES.K8S",
-    "REDIS.CACHE",
-  ]
+  // Frontend
+  "REACT.JSX",
+  "REACT-NATIVE",
+  "TYPESCRIPT.TS",
+  "HTML5",
+  "NEXT.JS",
+  "TAILWIND.CSS",
+
+  // Backend
+  "NODE.JS",
+  "EXPRESS.JS",
+  "MONGODB.DB",
+  "POSTGRESQL.SQL",
+  "MONGOOSE.ODM",
+  "REDIS.CACHE",
+  "GRAPHQL.API",
+
+  // DevOps
+  "GIT.WORKFLOW",
+  "DOCKER.CONTAINER",
+  "CI/CD.PIPELINE",
+  "AWS.CLOUD",
+  "KUBERNETES.K8S",
+  
+  // UI/UX Design
+  "FIGMA.DESIGN",
+  "DESIGN.SYSTEMS",
+  
+  // Animation & Motion
+  "FRAMER.MOTION",
+  "GSAP.ANIMATION",
+  "THREE.JS",
+  "SVG.ANIMATION",
+  "ADOBE.SUITE",
+  
+  // Game Development
+  "UNITY.C#",
+  "GAMEDEV.LOGIC",
+  "BLENDER.3D",
+  "WEBGL.3D",
+  
+  
+]
 
   return (
     <div className="max-w-4xl mx-auto slide-in">

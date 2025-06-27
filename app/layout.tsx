@@ -4,9 +4,9 @@ import "./globals.css"
 import { ClientLayout } from "@/components/client-layout"
 
 export const metadata: Metadata = {
-  title: "Dev Portfolio - Retro Style",
-  description: "A pixel-perfect retro portfolio showcasing modern web development",
-    generator: 'v0.dev'
+  title: "kshimate.me",
+  description: "a dev nd designer",
+    generator: 'v0.0.1'
 }
 
 export default function RootLayout({

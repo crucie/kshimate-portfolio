@@ -70,7 +70,7 @@ export function Header({ darkMode, setDarkMode, currentPath }: HeaderProps) {
               <div className={`w-8 h-8 pixel-art-logo ${darkMode ? "bg-green-400" : "bg-gray-900"}`}>
                 <div className="pixel-pattern"></div>
               </div>
-              <h1 className="text-xl font-bold font-mono tracking-wider glitch-text">{"<DEV.PORTFOLIO/>"}</h1>
+              <h1 className="text-xl font-bold font-mono tracking-wider glitch-text">{"<kshimate/>"}</h1>
             </Link>
 
             <nav className="hidden md:flex items-center space-x-6">
@@ -95,7 +95,7 @@ export function Header({ darkMode, setDarkMode, currentPath }: HeaderProps) {
 
             <div className="flex items-center gap-2">
               {/* Network Monitor Widget */}
-              <NetworkMonitor darkMode={darkMode} />
+              {/* <NetworkMonitor darkMode={darkMode} /> */}
 
               <Button
                 onClick={() => setDarkMode(!darkMode)}

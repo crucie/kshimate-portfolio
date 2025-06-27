@@ -14,12 +14,19 @@ export default function ContactPage() {
             <div>{"    ║ COLLABORATE? ║"}</div>
             <div>{"    ╚══════════════╝"}</div>
           </div>
-          <p className="font-mono text-lg mb-8 typing-animation">{"> Let's build something awesome together!"}</p>
+          <div className="terminal-text mb-6">
+            <p className="font-mono text-lg typing-animation">{"> Let's build something awesome together!"}</p>
+            <p className="font-mono text-lg typing-animation">{"> Mail me at work.amaymishra@gmail.com! "}</p>  
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="pixel-border font-mono hover:scale-110 transition-transform touch-target bg-primary text-primary-foreground border-current hover:bg-primary/90 component-grid dark:dark light">
-              <Mail className="h-4 w-4 mr-2" />
-              EMAIL.SEND()
-            </Button>
+            <a href="mailto:work.amaymishra@gmail.com" target="_blank" rel="noopener noreferrer">
+              <Button className="pixel-border font-mono hover:scale-110 transition-transform touch-target bg-primary text-primary-foreground border-current hover:bg-primary/90 component-grid dark:dark light">
+                <Mail className="h-4 w-4 mr-2" />
+                EMAIL.SEND()
+              </Button> 
+            </a>
+            <a href="https://github.com/crucie" target="_blank" rel="noopener noreferrer">
             <Button
               variant="outline"
               className="pixel-border font-mono hover:scale-110 transition-transform touch-target border-current hover:bg-accent component-grid dark:dark light"
@@ -27,6 +34,7 @@ export default function ContactPage() {
               <Github className="h-4 w-4 mr-2" />
               GITHUB.VISIT()
             </Button>
+            </a>
           </div>
         </CardContent>
       </Card>

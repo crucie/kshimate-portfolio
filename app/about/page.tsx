@@ -54,16 +54,16 @@ export default function AboutPage() {
         <CardContent className="space-y-4 font-mono">
           <div className="terminal-text">
             <p className="typing-animation" style={{ animationDelay: "0.5s" }}>
-              {"> Passionate developer with 5+ years of experience"}
+              {"> Passionate developer with 2+ years of experience"}
             </p>
             <p className="typing-animation" style={{ animationDelay: "1s" }}>
-              {"> Specializing in modern web technologies and retro aesthetics"}
+              {"> I love to learn new web technologies and frameworks, make games, animations, and more!"}
             </p>
             <p className="typing-animation" style={{ animationDelay: "1.5s" }}>
               {"> Love creating pixel-perfect interfaces and smooth UX"}
             </p>
             <p className="typing-animation" style={{ animationDelay: "2s" }}>
-              {"> When not coding, creating pixel art and playing retro games"}
+              {"> When not coding, creating pixel art and building indie games"}
             </p>
           </div>
         </CardContent>
