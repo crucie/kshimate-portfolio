@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import logo from "@/public/images/Logo.png"
+import Image from 'next/image'
 
 export default function AboutPage() {
   const [typewriterText, setTypewriterText] = useState("")
@@ -36,7 +38,8 @@ export default function AboutPage() {
     <div className="max-w-4xl mx-auto slide-in">
       <div className="text-center mb-12">
         <div className="w-32 h-32 mx-auto mb-6 pixel-avatar bg-current">
-          <div className="pixel-face"></div>
+          {/* <div className="pixel-face"></div> */}
+          <img src={logo.src} alt="Logo" className="w-full h-full object-cover" />
         </div>
         <h2 className="text-4xl md:text-6xl font-bold font-mono mb-4 tracking-wider">HELLO_INTERNET</h2>
         <div className="text-lg md:text-xl font-mono min-h-[2rem]">

@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation"
 import { Moon, Sun, User, Briefcase, Code, MessageSquare, Settings, BookOpen, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { NetworkMonitor } from "@/components/network-monitor"
+import logo from "@/public/images/Logo.png" 
+
 
 interface HeaderProps {
   darkMode: boolean
@@ -68,7 +70,8 @@ export function Header({ darkMode, setDarkMode, currentPath }: HeaderProps) {
           <div className="flex items-center justify-between">
             <Link href="/about" className="flex items-center space-x-4 hover:scale-105 transition-transform">
               <div className={`w-8 h-8 pixel-art-logo ${darkMode ? "bg-green-400" : "bg-gray-900"}`}>
-                <div className="pixel-pattern"></div>
+                {/* <div className="pixel-pattern"></div> */}
+                <img src={logo.src} alt="Logo" className="w-full h-full object-cover" />
               </div>
               <h1 className="text-xl font-bold font-mono tracking-wider glitch-text">{"<kshimate/>"}</h1>
             </Link>
