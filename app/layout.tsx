@@ -6,7 +6,11 @@ import { ClientLayout } from "@/components/client-layout"
 export const metadata: Metadata = {
   title: "kshimate.me",
   description: "a dev nd designer",
-    generator: 'v0.0.1'
+    generator: 'v0.0.1',
+    icons:[
+      {url: '/favicon.svg', type: 'image/svg+xml'},
+      { url: "/favicon.ico", sizes: "any" }
+    ]
 }
 
 export default function RootLayout({
