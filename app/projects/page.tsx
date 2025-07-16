@@ -10,34 +10,34 @@ export default function ProjectsPage() {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0)
 
   const projects = [
-    {
-      id: "pixel-game",
-      title: "PIXEL_GAME.EXE",
-      description: "Retro 2D game engine with pixel-perfect collision detection",
-      tech: ["TypeScript", "Canvas", "WebGL"],
-      github: "#",
-      demo: "#",
-      ascii: ["████████", "█      █", "█  ██  █", "█      █", "████████"],
-    },
-    {
-      id: "chiptune-player",
-      title: "CHIPTUNE_PLAYER.EXE",
-      description: "8-bit music player with real-time waveform visualization",
-      tech: ["React", "Web Audio", "CSS"],
-      github: "#",
-      demo: "#",
-      ascii: ["♪ ♫ ♪ ♫", "████████", "█▓▓▓▓▓▓█", "████████", "♫ ♪ ♫ ♪"],
-    },
-    {
-      id: "retro-dash",
-      title: "RETRO_DASH.EXE",
-      description: "Pixel-perfect admin dashboard with terminal interface",
-      tech: ["Next.js", "Tailwind", "Framer"],
-      github: "#",
-      demo: "#",
-      ascii: ["┌──────┐", "│ DASH │", "├──────┤", "│ DATA │", "└──────┘"],
-    },
-  ]
+  {
+    id: "default-project-1",
+    title: "DEFAULT_PROJECT_1.EXE",
+    description: "A standard web application with modern tech stack",
+    tech: ["React", "JavaScript", "CSS"],
+    github: "#",
+    demo: "#",
+    ascii: ["┌──────┐", "│ PROJ │", "├──────┤", "│ DEMO │", "└──────┘"],
+  },
+  {
+    id: "default-project-2",
+    title: "DEFAULT_PROJECT_2.EXE",
+    description: "A standard web application with modern tech stack",
+    tech: ["React", "JavaScript", "CSS"],
+    github: "#",
+    demo: "#",
+    ascii: ["┌──────┐", "│ PROJ │", "├──────┤", "│ DEMO │", "└──────┘"],
+  },
+  {
+    id: "default-project-3",
+    title: "DEFAULT_PROJECT_3.EXE",
+    description: "A standard web application with modern tech stack",
+    tech: ["React", "JavaScript", "CSS"],
+    github: "#",
+    demo: "#",
+    ascii: ["┌──────┐", "│ PROJ │", "├──────┤", "│ DEMO │", "└──────┘"],
+  },
+]
 
   return (
     <div className="max-w-6xl mx-auto slide-in">

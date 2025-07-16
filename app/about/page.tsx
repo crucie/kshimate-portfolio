@@ -9,7 +9,16 @@ export default function AboutPage() {
   const [typewriterText, setTypewriterText] = useState("")
   const [showCursor, setShowCursor] = useState(true)
 
-  const fullText = "FULL_STACK_DEVELOPER.EXE"
+  const fullText = "FULL_STACK_DEVELOPER.EXE" ;
+
+  const fullTextList = [
+    "FULL_STACK_DEVELOPER.EXE",
+    "INDIE_GAME_DEVELOPER.EXE",
+    "ANIMATOR.EXE",
+  ]
+
+  //Typewriter effect for full list
+  useEffect(() => {}, [fullTextList])
 
   // Typewriter effect
   useEffect(() => {
