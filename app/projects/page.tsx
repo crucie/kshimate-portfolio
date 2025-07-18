@@ -11,13 +11,13 @@ export default function ProjectsPage() {
 
   const projects = [
   {
-    id: "default-project-1",
-    title: "DEFAULT_PROJECT_1.EXE",
-    description: "A standard web application with modern tech stack",
-    tech: ["React", "JavaScript", "CSS"],
-    github: "#",
+    id: "prj01",
+    title: "CRUD-App",
+    description: "A standard CRUD application on MongoDB",
+    tech: ["Express", "JavaScript", "mongoose", "nodemon"],
+    github: "https://github.com/crucie/CRUDmongo",
     demo: "#",
-    ascii: ["┌──────┐", "│ PROJ │", "├──────┤", "│ DEMO │", "└──────┘"],
+    ascii: ["┌──────┐", "│ CRUD │", "├──────┤", "│ mongo │", "└──────┘"],
   },
   {
     id: "default-project-2",
