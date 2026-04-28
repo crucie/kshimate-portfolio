@@ -4,7 +4,7 @@ import "./globals.css"
 import { ClientLayout } from "@/components/client-layout"
 
 export const metadata: Metadata = {
-  title: "kshimate.me",
+  title: "kshimate",
   description: "a dev nd designer",
     generator: 'v0.0.1',
     icons:[

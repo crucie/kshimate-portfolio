@@ -1,10 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Settings, Zap, Eye, Volume2, Monitor, Network } from "lucide-react"
+import { Settings, Zap, Eye, Volume2, Monitor, Lightbulb } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { PerformanceMonitor } from "@/components/performance-monitor"
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState({
@@ -16,14 +15,11 @@ export default function SettingsPage() {
     reducedMotion: false,
     animationSpeed: 1,
     particleCount: 20,
-    performanceMode: "normal", // normal, high, low
+    performanceMode: "normal" as "normal" | "high" | "low",
     gpuAcceleration: true,
-    showPerformanceMonitor: false,
-    showNetworkMonitor: true,
   })
 
   useEffect(() => {
-    // Load settings from localStorage
     const savedSettings = localStorage.getItem("portfolio-settings")
     if (savedSettings) {
       setSettings(JSON.parse(savedSettings))
@@ -31,13 +27,9 @@ export default function SettingsPage() {
   }, [])
 
   useEffect(() => {
-    // Save settings to localStorage
     localStorage.setItem("portfolio-settings", JSON.stringify(settings))
-
-    // Apply settings to document
     const root = document.documentElement
 
-    // Toggle animation classes
     root.classList.toggle("no-floating-pixels", !settings.floatingPixels)
     root.classList.toggle("no-grid-animation", !settings.gridAnimation)
     root.classList.toggle("no-glitch-effects", !settings.glitchEffects)
@@ -45,15 +37,12 @@ export default function SettingsPage() {
     root.classList.toggle("no-hover-animations", !settings.hoverAnimations)
     root.classList.toggle("reduced-motion", settings.reducedMotion)
 
-    // Performance mode classes
     root.classList.remove("performance-mode-high", "performance-mode-low", "performance-mode-normal")
     root.classList.add(`performance-mode-${settings.performanceMode}`)
 
-    // Set CSS variables
     root.style.setProperty("--animation-speed", settings.animationSpeed.toString())
     root.style.setProperty("--particle-count", settings.particleCount.toString())
 
-    // Performance optimizations
     if (settings.performanceMode === "high") {
       root.style.setProperty("--grid-opacity", "0.15")
       root.style.setProperty("--animation-speed", (settings.animationSpeed * 0.5).toString())
@@ -64,30 +53,21 @@ export default function SettingsPage() {
       root.style.setProperty("--grid-opacity", "0.25")
     }
 
-    // GPU acceleration toggle
-    if (!settings.gpuAcceleration) {
-      root.style.setProperty("--gpu-acceleration", "none")
-    } else {
-      root.style.setProperty("--gpu-acceleration", "auto")
-    }
+    root.style.setProperty("--gpu-acceleration", settings.gpuAcceleration ? "auto" : "none")
 
-    // Add animate class to grids
     const grids = document.querySelectorAll(".component-grid")
     grids.forEach((grid) => {
-      if (settings.gridAnimation) {
-        grid.classList.add("animate")
-      } else {
-        grid.classList.remove("animate")
-      }
+      if (settings.gridAnimation) grid.classList.add("animate")
+      else grid.classList.remove("animate")
     })
   }, [settings])
 
-  const updateSetting = (key: string, value: any) => {
+  const updateSetting = (key: string, value: unknown) => {
     setSettings((prev) => ({ ...prev, [key]: value }))
   }
 
   const resetSettings = () => {
-    const defaultSettings = {
+    setSettings({
       floatingPixels: true,
       gridAnimation: true,
       glitchEffects: true,
@@ -98,37 +78,24 @@ export default function SettingsPage() {
       particleCount: 20,
       performanceMode: "normal",
       gpuAcceleration: true,
-      showPerformanceMonitor: false,
-      showNetworkMonitor: true,
-    }
-    setSettings(defaultSettings)
+    })
   }
 
   const getPerformanceRecommendation = () => {
     if (typeof window === "undefined") return null
-
-    const memory = (performance as any).memory
-    const deviceMemory = (navigator as any).deviceMemory
+    const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory
     const hardwareConcurrency = navigator.hardwareConcurrency || 4
-
-    if (deviceMemory && deviceMemory < 4) {
-      return "Consider using 'Low Performance' mode for better experience on this device."
-    }
-
-    if (hardwareConcurrency < 4) {
-      return "Your device has limited CPU cores. 'Low Performance' mode is recommended."
-    }
-
-    if (memory && memory.totalJSHeapSize > 100 * 1024 * 1024) {
-      return "High memory usage detected. Consider reducing particle count."
-    }
-
+    if (deviceMemory && deviceMemory < 4) return "Consider using 'Low Performance' mode for better experience."
+    if (hardwareConcurrency < 4) return "Your device has limited CPU cores. 'Low Performance' mode recommended."
     return null
   }
 
   return (
     <div className="max-w-4xl mx-auto slide-in">
-      <h2 className="text-3xl md:text-4xl font-bold font-mono mb-8 text-center tracking-wider">⚙️ SETTINGS.CFG</h2>
+      <div className="flex items-center justify-center gap-3 mb-8">
+        <Settings className="h-7 w-7 text-primary" />
+        <h2 className="text-3xl md:text-4xl font-bold font-mono tracking-wider">SETTINGS.CFG</h2>
+      </div>
 
       <div className="grid gap-6">
         {/* Performance Mode */}
@@ -142,7 +109,7 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {["high", "normal", "low"].map((mode) => (
+              {(["high", "normal", "low"] as const).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => updateSetting("performanceMode", mode)}
@@ -161,11 +128,11 @@ export default function SettingsPage() {
                 </button>
               ))}
             </div>
-
             {getPerformanceRecommendation() && (
-              <div className="p-3 pixel-border bg-yellow-400/10 border-yellow-400 font-mono text-sm">
-                💡 {getPerformanceRecommendation()}
-              </div>
+              <div className="p-3 pixel-border bg-primary/10 border-current font-mono text-sm flex items-start gap-2">
+                  <Lightbulb className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  {getPerformanceRecommendation()}
+                </div>
             )}
           </CardContent>
         </Card>
@@ -188,44 +155,6 @@ export default function SettingsPage() {
                 { key: "typewriterEffect", label: "TYPEWRITER.EXE" },
                 { key: "hoverAnimations", label: "HOVER_EFFECTS.EXE" },
                 { key: "gpuAcceleration", label: "GPU_ACCELERATION.EXE" },
-              ].map(({ key, label }) => (
-                <div
-                  key={key}
-                  className="flex items-center justify-between p-3 pixel-border bg-accent/20 component-grid dark:dark light"
-                >
-                  <span className="font-mono text-sm">{label}</span>
-                  <button
-                    onClick={() => updateSetting(key, !settings[key as keyof typeof settings])}
-                    className={`w-12 h-6 pixel-border transition-colors ${
-                      settings[key as keyof typeof settings] ? "bg-green-400" : "bg-gray-400"
-                    }`}
-                  >
-                    <div
-                      className={`w-4 h-4 bg-white transition-transform ${
-                        settings[key as keyof typeof settings] ? "translate-x-6" : "translate-x-1"
-                      }`}
-                    />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* UI Controls */}
-        <Card className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light animate">
-          <CardHeader>
-            <CardTitle className="font-mono text-xl flex items-center gap-2">
-              <Network className="h-5 w-5" />
-              UI_ELEMENTS.CFG
-            </CardTitle>
-            <CardDescription className="font-mono">Configure UI elements and widgets</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { key: "showNetworkMonitor", label: "NETWORK_MONITOR.EXE" },
-                { key: "showPerformanceMonitor", label: "PERFORMANCE_MONITOR.EXE" },
               ].map(({ key, label }) => (
                 <div
                   key={key}
@@ -277,7 +206,6 @@ export default function SettingsPage() {
                 <span>3x (Fast)</span>
               </div>
             </div>
-
             <div>
               <label className="font-mono text-sm mb-2 block">PARTICLE_COUNT: {settings.particleCount}</label>
               <input
@@ -309,12 +237,6 @@ export default function SettingsPage() {
           <CardContent>
             <div className="font-mono text-sm space-y-2">
               <div className="flex justify-between">
-                <span>USER_AGENT:</span>
-                <span className="text-right text-xs opacity-60">
-                  {typeof window !== "undefined" ? window.navigator.userAgent.slice(0, 30) + "..." : "N/A"}
-                </span>
-              </div>
-              <div className="flex justify-between">
                 <span>SCREEN_SIZE:</span>
                 <span>{typeof window !== "undefined" ? `${window.screen.width}x${window.screen.height}` : "N/A"}</span>
               </div>
@@ -331,16 +253,6 @@ export default function SettingsPage() {
                 <span>{typeof window !== "undefined" ? navigator.hardwareConcurrency || "Unknown" : "N/A"}</span>
               </div>
               <div className="flex justify-between">
-                <span>DEVICE_MEMORY:</span>
-                <span>
-                  {typeof window !== "undefined"
-                    ? (navigator as any).deviceMemory
-                      ? `${(navigator as any).deviceMemory}GB`
-                      : "Unknown"
-                    : "N/A"}
-                </span>
-              </div>
-              <div className="flex justify-between">
                 <span>ONLINE_STATUS:</span>
                 <span className={typeof window !== "undefined" && navigator.onLine ? "text-green-400" : "text-red-400"}>
                   {typeof window !== "undefined" ? (navigator.onLine ? "ONLINE" : "OFFLINE") : "N/A"}
@@ -350,7 +262,7 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        {/* Reset Button */}
+        {/* Reset */}
         <div className="text-center">
           <Button
             onClick={resetSettings}
@@ -362,9 +274,6 @@ export default function SettingsPage() {
           </Button>
         </div>
       </div>
-
-      {/* Performance Monitor */}
-      {settings.showPerformanceMonitor && <PerformanceMonitor />}
     </div>
   )
 }

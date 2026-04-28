@@ -1,243 +1,134 @@
 import Link from "next/link"
-import { ArrowLeft, Calendar, Clock, Tag, ExternalLink } from "lucide-react"
+import { notFound } from "next/navigation"
+import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import fs from "fs"
+import path from "path"
+import matter from "gray-matter"
 
 interface BlogPostProps {
   params: Promise<{ slug: string }>
 }
 
+interface PostMeta {
+  title: string
+  date: string
+  readTime: string
+  tags: string[]
+  description: string
+}
+
+async function getPost(slug: string): Promise<{ meta: PostMeta; content: string } | null> {
+  const filePath = path.join(process.cwd(), "content", "blog", `${slug}.md`)
+  if (!fs.existsSync(filePath)) return null
+
+  const raw = fs.readFileSync(filePath, "utf-8")
+  const { data, content } = matter(raw)
+
+  return {
+    meta: {
+      title: data.title ?? slug,
+      date: data.date ?? "",
+      readTime: data.readTime ?? "? min",
+      tags: data.tags ?? [],
+      description: data.description ?? "",
+    },
+    content,
+  }
+}
+
+// Lightweight markdown-to-HTML renderer
+function renderMarkdown(md: string): string {
+  return md
+    // Headings
+    .replace(/^### (.+)$/gm, '<h3 class="font-mono text-base font-bold mt-6 mb-2 text-primary">$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2 class="font-mono text-lg font-bold mt-8 mb-3 border-b border-current/30 pb-1">$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1 class="font-mono text-2xl font-bold mt-4 mb-4">$1</h1>')
+    // Bold
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-primary">$1</strong>')
+    // Inline code
+    .replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 bg-accent/40 font-mono text-xs rounded-none border border-current/20">$1</code>')
+    // Code blocks (crude but works)
+    .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
+      `<pre class="my-4 p-4 pixel-border bg-accent/20 font-mono text-xs overflow-x-auto whitespace-pre"><code>${code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`
+    )
+    // Horizontal rule
+    .replace(/^---$/gm, '<hr class="border-current/30 my-6" />')
+    // Blockquote
+    .replace(/^> (.+)$/gm, '<blockquote class="border-l-2 border-primary pl-4 font-mono text-sm opacity-80 italic my-3">$1</blockquote>')
+    // Unordered lists
+    .replace(/^- (.+)$/gm, '<li class="font-mono text-sm flex items-start gap-2 mb-1"><span class="text-primary shrink-0">▶</span><span>$1</span></li>')
+    // Line breaks → paragraphs
+    .replace(/\n{2,}/g, '</p><p class="font-mono text-sm leading-relaxed mb-3">')
+    // Wrap in initial paragraph
+    .replace(/^/, '<p class="font-mono text-sm leading-relaxed mb-3">')
+    .replace(/$/, '</p>')
+    // Wrap li in ul
+    .replace(/(<li[^>]*>[^<]*(?:<[^/][^>]*>[^<]*<\/[^>]*>[^<]*)*<\/li>(?:\s*<li[^>]*>[^<]*(?:<[^/][^>]*>[^<]*<\/[^>]*>[^<]*)*<\/li>)*)/g, '<ul class="list-none my-3 space-y-1 pl-2">$1</ul>')
+}
+
 export default async function BlogPost({ params }: BlogPostProps) {
   const { slug } = await params
+  const post = await getPost(slug)
 
-  // Mock blog post data - in real app, fetch from CMS/database
-  const blogPosts: Record<string, any> = {
-    "building-retro-ui": {
-      title: "BUILDING_RETRO_UI.MD",
-      date: "2024-01-15",
-      readTime: "8 min",
-      tags: ["CSS", "Design", "Retro"],
-      content: `
-# Building Retro UI Components
+  if (!post) notFound()
 
-Creating pixel-perfect retro interfaces requires attention to detail and understanding of classic design principles.
-
-## Key Principles
-
-\`\`\`css
-.pixel-border {
-  border: 2px solid currentColor;
-  image-rendering: pixelated;
-  font-family: monospace;
-}
-\`\`\`
-
-## Color Schemes
-- **Green on Black**: Classic terminal aesthetic
-- **Amber on Black**: Vintage monitor feel  
-- **White on Blue**: Windows 95 nostalgia
-
-## Typography
-Always use monospace fonts for authentic retro feel:
-- Courier New
-- Monaco  
-- Consolas
-
-## Resources
-- [CSS Pixel Art Tutorial](https://example.com)
-- [Retro Color Palettes](https://example.com)
-      `,
-    },
-    "nextjs-performance": {
-      title: "NEXTJS_OPTIMIZATION.MD",
-      date: "2024-01-10",
-      readTime: "12 min",
-      tags: ["Next.js", "Performance", "React"],
-      content: `
-# Next.js Performance Optimization
-
-Advanced techniques to make your Next.js applications lightning fast.
-
-## Image Optimization
-
-\`\`\`jsx
-import Image from 'next/image'
-
-<Image
-  src="/hero.jpg"
-  alt="Hero"
-  width={800}
-  height={600}
-  priority
-  placeholder="blur"
-/>
-\`\`\`
-
-## Bundle Analysis
-Use webpack-bundle-analyzer to identify large dependencies:
-
-\`\`\`bash
-npm install --save-dev @next/bundle-analyzer
-\`\`\`
-
-## Code Splitting
-Implement dynamic imports for better performance:
-
-\`\`\`jsx
-const DynamicComponent = dynamic(() => import('./Component'))
-\`\`\`
-      `,
-    },
-    "pixel-art-css": {
-      title: "PIXEL_ART_CSS.MD",
-      date: "2024-01-05",
-      readTime: "6 min",
-      tags: ["CSS", "Animation", "Art"],
-      content: `
-# Creating Pixel Art with CSS
-
-Learn how to create stunning pixel art using only CSS.
-
-## Box Shadow Technique
-
-\`\`\`css
-.pixel-art {
-  width: 1px;
-  height: 1px;
-  box-shadow: 
-    0 0 0 1px red,
-    1px 0 0 1px blue,
-    0 1px 0 1px green;
-}
-\`\`\`
-
-## Grid Method
-Use CSS Grid for more complex pixel art:
-
-\`\`\`css
-.pixel-grid {
-  display: grid;
-  grid-template-columns: repeat(8, 10px);
-  grid-template-rows: repeat(8, 10px);
-}
-\`\`\`
-      `,
-    },
-    "typescript-tips": {
-      title: "TYPESCRIPT_TIPS.MD",
-      date: "2023-12-28",
-      readTime: "10 min",
-      tags: ["TypeScript", "JavaScript", "Tips"],
-      content: `
-# Advanced TypeScript Tips
-
-Improve your TypeScript skills with these advanced patterns.
-
-## Utility Types
-
-\`\`\`typescript
-// Pick specific properties
-type UserPreview = Pick<User, 'id' | 'name'>
-
-// Make all properties optional
-type PartialUser = Partial<User>
-
-// Make all properties required
-type RequiredUser = Required<User>
-\`\`\`
-
-## Conditional Types
-
-\`\`\`typescript
-type ApiResponse<T> = T extends string 
-  ? { message: T } 
-  : { data: T }
-\`\`\`
-
-## Template Literal Types
-
-\`\`\`typescript
-type EventName<T extends string> = \`on\${Capitalize<T>}\`
-type ButtonEvent = EventName<'click'> // 'onClick'
-\`\`\`
-      `,
-    },
-  }
-
-  const post = blogPosts[slug]
-
-  if (!post) {
-    return (
-      <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-4xl font-mono mb-4">404.ERROR</h1>
-        <p className="font-mono mb-8">Blog post not found</p>
-        <Link href="/blog">
-          <Button className="pixel-border font-mono">BACK_TO_BLOG.EXE</Button>
-        </Link>
-      </div>
-    )
-  }
+  const { meta, content } = post
 
   return (
-    <div className="max-w-4xl mx-auto slide-in">
-      <div className="mb-8">
+    <div className="max-w-3xl mx-auto slide-in">
+      {/* Back button */}
+      <div className="mb-6">
         <Link href="/blog">
-          <Button variant="outline" className="pixel-border font-mono border-current hover:bg-accent mb-4">
+          <Button variant="outline" className="pixel-border font-mono border-current hover:bg-accent">
             <ArrowLeft className="h-4 w-4 mr-2" />
             BACK_TO_BLOG.EXE
           </Button>
         </Link>
       </div>
 
-      <Card className="pixel-border bg-card text-card-foreground border-current">
-        <CardHeader>
-          <CardTitle className="font-mono text-2xl md:text-3xl mb-4">{post.title}</CardTitle>
+      {/* Post card */}
+      <div className="pixel-border bg-card text-card-foreground border-current">
+        {/* Header */}
+        <div className="border-b border-current/30 px-6 py-5">
+          <h1 className="font-mono text-2xl md:text-3xl font-bold mb-3">{meta.title}</h1>
           <div className="flex flex-wrap items-center gap-4 mb-4">
-            <div className="flex items-center gap-2 font-mono text-sm">
-              <Calendar className="h-4 w-4" />
-              {new Date(post.date).toLocaleDateString()}
+            <div className="flex items-center gap-2 font-mono text-xs opacity-70">
+              <Calendar className="h-3 w-3" />
+              {meta.date ? new Date(meta.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "—"}
             </div>
-            <div className="flex items-center gap-2 font-mono text-sm">
-              <Clock className="h-4 w-4" />
-              {post.readTime}
+            <div className="flex items-center gap-2 font-mono text-xs opacity-70">
+              <Clock className="h-3 w-3" />
+              {meta.readTime}
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag: string, index: number) => (
+            {meta.tags.map((tag) => (
               <span
-                key={index}
-                className="px-2 py-1 text-xs font-mono pixel-border bg-accent text-accent-foreground border-current flex items-center gap-1"
+                key={tag}
+                className="px-2 py-0.5 text-xs font-mono pixel-border bg-accent text-accent-foreground border-current flex items-center gap-1"
               >
-                <Tag className="h-3 w-3" />
+                <Tag className="h-2.5 w-2.5" />
                 {tag}
               </span>
             ))}
           </div>
-        </CardHeader>
-        <CardContent>
-          <div className="prose prose-invert max-w-none font-mono">
-            <pre className="whitespace-pre-wrap text-sm leading-relaxed">{post.content}</pre>
-          </div>
+        </div>
 
-          <div className="mt-8 pt-8 border-t border-current">
-            <h3 className="font-mono text-lg mb-4">📚 RELATED_RESOURCES.JSON</h3>
-            <div className="grid gap-2">
-              <a href="#" className="flex items-center gap-2 font-mono text-sm hover:scale-105 transition-transform">
-                <ExternalLink className="h-4 w-4" />
-                Official Documentation
-              </a>
-              <a href="#" className="flex items-center gap-2 font-mono text-sm hover:scale-105 transition-transform">
-                <ExternalLink className="h-4 w-4" />
-                GitHub Repository
-              </a>
-              <a href="#" className="flex items-center gap-2 font-mono text-sm hover:scale-105 transition-transform">
-                <ExternalLink className="h-4 w-4" />
-                Live Demo
-              </a>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+        {/* Content */}
+        <div
+          className="px-6 py-6 terminal-log-viewer"
+          dangerouslySetInnerHTML={{ __html: renderMarkdown(content) }}
+        />
+
+        {/* Footer */}
+        <div className="border-t border-current/30 px-6 py-4 font-mono text-xs opacity-40">
+          <span>// END_OF_FILE — </span>
+          <Link href="/blog" className="hover:opacity-80 underline">
+            READ_MORE.EXE
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,126 +1,124 @@
 "use client"
 
-import type React from "react"
 
+import type React from "react"
 import { useState, useCallback } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Moon, Sun, User, Briefcase, Code, MessageSquare, Settings, BookOpen, Zap } from "lucide-react"
+import { Moon, Sun, Settings, Gamepad2, BookOpen, Zap, MessageSquare, Home, Globe, Flame } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { NetworkMonitor } from "@/components/network-monitor"
-import logo from "@/public/images/Logo.png" 
-
+import type { Theme } from "@/components/client-layout"
 
 interface HeaderProps {
   darkMode: boolean
-  setDarkMode: (value: boolean) => void
+  setDarkMode: (v: boolean) => void
+  theme: Theme
+  setTheme: (v: Theme) => void
   currentPath: string
 }
 
-export function Header({ darkMode, setDarkMode, currentPath }: HeaderProps) {
+export function Header({ darkMode, setDarkMode, theme, setTheme, currentPath }: HeaderProps) {
   const [touchStart, setTouchStart] = useState<number | null>(null)
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
   const router = useRouter()
 
-  const sections = [
-    { path: "/about", name: "about" },
-    { path: "/experience", name: "experience" },
-    { path: "/projects", name: "projects" },
-    { path: "/blog", name: "blog" },
-    { path: "/skills", name: "skills" },
-    { path: "/contact", name: "contact" },
+  const isHome = currentPath === "/"
+
+  const navLinks = [
+    { href: "/", label: "HOME" },
+    { href: "/games", label: "GAMES" },
+    { href: "/blog", label: "BLOG" },
+    { href: "/skills", label: "SKILLS" },
+    { href: "/contact", label: "CONTACT" },
+  ]
+
+  const mobileIcons = [
+    { href: "/", icon: Home },
+    { href: "/games", icon: Gamepad2 },
+    { href: "/blog", icon: BookOpen },
+    { href: "/skills", icon: Zap },
+    { href: "/contact", icon: MessageSquare },
   ]
 
   const minSwipeDistance = 50
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
-
+  const onTouchStart = (e: React.TouchEvent) => { setTouchEnd(null); setTouchStart(e.targetTouches[0].clientX) }
+  const onTouchMove = (e: React.TouchEvent) => { setTouchEnd(e.targetTouches[0].clientX) }
   const onTouchEnd = useCallback(() => {
     if (!touchStart || !touchEnd) return
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
+    const dist = touchStart - touchEnd
+    if (Math.abs(dist) < minSwipeDistance) return
+    const pages = ["/", "/games", "/blog", "/skills", "/contact"]
+    const ci = pages.indexOf(currentPath)
+    if (dist > 0 && ci < pages.length - 1) router.push(pages[ci + 1])
+    else if (dist < 0 && ci > 0) router.push(pages[ci - 1])
+  }, [touchStart, touchEnd, currentPath, router])
 
-    if (isLeftSwipe || isRightSwipe) {
-      const currentIndex = sections.findIndex((section) => section.path === currentPath)
-      if (isLeftSwipe && currentIndex < sections.length - 1) {
-        router.push(sections[currentIndex + 1].path)
-      } else if (isRightSwipe && currentIndex > 0) {
-        router.push(sections[currentIndex - 1].path)
-      }
-    }
-  }, [touchStart, touchEnd, currentPath, sections, router])
+  const isActive = (href: string) => currentPath === href || (href === "/" && currentPath === "/")
+
+  const activeClass = darkMode
+    ? theme === "fire-red" ? "text-[#dc4600] font-bold" : "text-green-400 font-bold"
+    : theme === "fire-red" ? "text-[#c01c00] font-bold" : "text-gray-900 font-bold"
+
+  const inactiveClass = darkMode
+    ? theme === "fire-red" ? "text-[#a06030] hover:text-[#ff8030]" : "text-gray-400 hover:text-green-300"
+    : theme === "fire-red" ? "text-[#7a4020] hover:text-[#c01c00]" : "text-gray-600 hover:text-gray-900"
+
+  const borderColor = theme === "fire-red"
+    ? darkMode ? "border-[#b44600]" : "border-[#3c1c05]"
+    : darkMode ? "border-green-400" : "border-gray-600"
+
+  const btnClass = theme === "fire-red"
+    ? darkMode
+      ? "border-[#b44600] text-[#f5d264] hover:bg-[#b44600] hover:text-black"
+      : "border-[#3c1c05] text-[#3c1c05] hover:bg-[#3c1c05] hover:text-[#f8f0c8]"
+    : darkMode
+      ? "border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900"
+      : "border-gray-600 text-gray-900 hover:bg-gray-900 hover:text-white"
 
   return (
     <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
-      {/* Header */}
-      <header
-        className={`sticky top-0 z-50 border-b-2 pixel-border backdrop-blur-sm ${
-          darkMode ? "bg-gray-800/90 border-green-400" : "bg-white/90 border-gray-600"
-        }`}
-      >
-        <div className="container mx-auto px-4 py-4">
+      <header className={`sticky top-0 z-50 border-b-2 pixel-border backdrop-blur-sm ${darkMode ? `bg-gray-900/90 ${borderColor}` : `bg-white/90 ${borderColor}`}`}>
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <Link href="/about" className="flex items-center space-x-4 hover:scale-105 transition-transform">
-              <div className={`w-8 h-8 pixel-art-logo ${darkMode ? "bg-green-400" : "bg-gray-900"}`}>
-                <div className="pixel-pattern"></div>
-                {/* <img src={logo.src} alt="Logo" className="w-full h-full object-cover" /> */}
+            <Link href="/" className="flex items-center space-x-3 hover:scale-105 transition-transform">
+              <span className="font-mono text-xs opacity-50 hidden sm:inline select-none">▓▒░</span>
+              <div className={`w-7 h-7 pixel-art-logo ${darkMode ? "bg-primary" : "bg-foreground"}`}>
+                <div className="pixel-pattern" />
               </div>
-              <h1 className="text-xl font-bold font-mono tracking-wider glitch-text">{"<kshimate/>"}</h1>
+              <h1 className="text-lg font-bold font-mono tracking-wider glitch-text">{"<kshimate/>"}</h1>
             </Link>
 
-            <nav className="hidden md:flex items-center space-x-6">
-              {sections.map((section) => (
-                <Link
-                  key={section.path}
-                  href={section.path}
-                  className={`font-mono text-sm uppercase tracking-wider transition-all duration-200 hover:scale-110 pixel-button ${
-                    currentPath === section.path
-                      ? darkMode
-                        ? "text-green-400 pixel-glow"
-                        : "text-gray-900 pixel-glow"
-                      : darkMode
-                        ? "text-gray-400 hover:text-green-300"
-                        : "text-gray-600 hover:text-gray-900"
-                  }`}
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center space-x-4">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href}
+                  className={`font-mono text-xs uppercase tracking-wider transition-all duration-200 hover:scale-110 pixel-button ${isActive(link.href) ? activeClass : inactiveClass}`}
                 >
-                  {section.name.toUpperCase()}
+                  {link.label}
                 </Link>
               ))}
             </nav>
 
-            <div className="flex items-center gap-2">
-              {/* Network Monitor Widget */}
-              {/* <NetworkMonitor darkMode={darkMode} /> */}
-
-              <Button
-                onClick={() => setDarkMode(!darkMode)}
-                variant="outline"
-                size="icon"
-                className={`pixel-border hover:scale-110 transition-transform ${
-                  darkMode
-                    ? "border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900"
-                    : "border-gray-600 text-gray-900 hover:bg-gray-900 hover:text-white"
-                }`}
+            {/* Controls */}
+            <div className="flex items-center gap-1">
+              {/* Theme toggle (Space ↔ Fire Red) */}
+              <Button onClick={() => setTheme(theme === "space" ? "fire-red" : "space")}
+                variant="outline" size="icon"
+                title={theme === "space" ? "Switch to Fire Red theme" : "Switch to Space theme"}
+                className={`pixel-border hover:scale-110 transition-transform ${btnClass}`}
+              >
+                {theme === "fire-red" ? <Globe className="h-4 w-4" /> : <Flame className="h-4 w-4" />}
+              </Button>
+              {/* Dark/light toggle */}
+              <Button onClick={() => setDarkMode(!darkMode)}
+                variant="outline" size="icon"
+                className={`pixel-border hover:scale-110 transition-transform ${btnClass}`}
               >
                 {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>
-              <Button
-                onClick={() => router.push("/settings")}
-                variant="outline"
-                size="icon"
-                className={`pixel-border hover:scale-110 transition-transform ${
-                  darkMode
-                    ? "border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900"
-                    : "border-gray-600 text-gray-900 hover:bg-gray-900 hover:text-white"
-                }`}
+              <Button onClick={() => router.push("/settings")}
+                variant="outline" size="icon"
+                className={`pixel-border hover:scale-110 transition-transform ${btnClass}`}
               >
                 <Settings className="h-4 w-4" />
               </Button>
@@ -129,42 +127,19 @@ export function Header({ darkMode, setDarkMode, currentPath }: HeaderProps) {
         </div>
       </header>
 
-      {/* Mobile Navigation with Swipe Indicator */}
-      <div
-        className={`md:hidden border-b-2 pixel-border ${darkMode ? "bg-gray-800 border-green-400" : "bg-white border-gray-600"}`}
-      >
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex justify-between items-center">
-            <div className="flex justify-center space-x-4 flex-1">
-              {[
-                { path: "/about", icon: User },
-                { path: "/experience", icon: Briefcase },
-                { path: "/projects", icon: Code },
-                { path: "/blog", icon: BookOpen },
-                { path: "/skills", icon: Zap },
-                { path: "/contact", icon: MessageSquare },
-              ].map(({ path, icon: Icon }) => (
-                <Link
-                  key={path}
-                  href={path}
-                  className={`p-3 transition-all duration-200 hover:scale-110 touch-target ${
-                    currentPath === path
-                      ? darkMode
-                        ? "text-green-400 pixel-glow"
-                        : "text-gray-900 pixel-glow"
-                      : darkMode
-                        ? "text-gray-400"
-                        : "text-gray-600"
-                  }`}
-                >
-                  <Icon className="h-5 w-5" />
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="text-center mt-2">
-            <p className="text-xs font-mono opacity-60">← SWIPE TO NAVIGATE →</p>
-          </div>
+      {/* Mobile Nav */}
+      <div className={`md:hidden border-b-2 pixel-border ${darkMode ? `bg-gray-900 ${borderColor}` : `bg-white ${borderColor}`}`}>
+        <div className="container mx-auto px-4 py-2 flex justify-center space-x-1">
+          {mobileIcons.map(({ href, icon: Icon }) => (
+            <Link key={href} href={href}
+              className={`p-2 transition-all hover:scale-110 touch-target ${isActive(href) ? activeClass : inactiveClass}`}
+            >
+              <Icon className="h-5 w-5" />
+            </Link>
+          ))}
+        </div>
+        <div className="text-center pb-1">
+          <p className="text-xs font-mono opacity-50">← SWIPE TO NAVIGATE →</p>
         </div>
       </div>
     </div>
