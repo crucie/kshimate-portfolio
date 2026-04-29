@@ -309,7 +309,7 @@ class TerminalProcessor {
         {/* Code Snippet */}
         <Card className="pixel-border bg-card text-card-foreground border-current">
           <CardHeader>
-            <CardTitle className="font-mono text-xl">💻 CODE_SAMPLE.TS</CardTitle>
+            <CardTitle className="font-mono text-xl"> CODE_SAMPLE.TS</CardTitle>
           </CardHeader>
           <CardContent>
             <pre className="font-mono text-xs bg-accent/20 p-4 rounded border overflow-x-auto">

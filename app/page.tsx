@@ -73,7 +73,7 @@ const projects = [
     description: "A modern slam book app — share memories and connect with friends digitally.",
     tech: ["React", "Node.js", "MongoDB", "Tailwind"],
     url: "https://slambk.kshimate.space",
-    github: "https://github.com/crucie",
+    github: "https://github.com/crucie/SlamBk",
     status: "LIVE" as Status,
   },
   {
@@ -82,7 +82,7 @@ const projects = [
     description: "Decentralised swarm coordination platform built on blockchain infrastructure.",
     tech: ["React", "Vite", "Hardhat", "Ethereum"],
     url: "https://dswarm.kshimate.space",
-    github: "https://github.com/crucie",
+    github: "https://github.com/crucie/decentralised-swarm",
     status: "LIVE" as Status,
   },
   {
@@ -91,13 +91,13 @@ const projects = [
     description: "A clean, fast CSV file viewer and editor built with Next.js.",
     tech: ["Next.js", "TypeScript", "Tailwind"],
     url: "https://csv.kshimate.space",
-    github: "https://github.com/crucie",
+    github: "https://github.com/crucie/upcsv",
     status: "WIP" as Status,
   },
   {
     id: "gdg-lko",
     title: "GDG Lucknow",
-    description: "Official website for Google Developer Group Lucknow — events, blogs & community hub.",
+    description: "Official dummy website for Google Developer Group Lucknow — events, blogs & community hub.",
     tech: ["Next.js", "React", "Tailwind"],
     url: "https://gdg-lko.kshimate.space",
     github: "https://github.com/crucie",
@@ -109,7 +109,7 @@ const projects = [
     description: "A premium modern Next.js web application with clean architecture.",
     tech: ["Next.js", "TypeScript", "Prisma", "Tailwind"],
     url: "https://pmnv.kshimate.space",
-    github: "https://github.com/crucie",
+    github: "https://github.com/crucie/pmnvNxt",
     status: "LIVE" as Status,
   },
   {
