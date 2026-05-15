@@ -103,7 +103,7 @@ export default function SkillsPage() {
             key={cat.name}
             custom={i}
             variants={categoryVariants}
-            className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light"
+            className="pixel-border bg-card text-card-foreground border-current component-grid"
           >
             <div className="border-b border-current/30 px-5 py-3 flex items-center gap-2">
               <cat.icon className="h-5 w-5 text-primary" />

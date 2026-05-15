@@ -77,6 +77,15 @@ const projects = [
     status: "LIVE" as Status,
   },
   {
+    id: "kanban",
+    title: "Kanban Board",
+    description: "A full-stack Kanban board with drag-and-drop task management and team collaboration.",
+    tech: ["Next.js", "Node.js", "PostgreSQL", "ReactJS", "Tailwind CSS"],
+    url: "https://kanban.kshimate.space",
+    github: "https://github.com/crucie/fs-knbn",
+    status: "LIVE" as Status,
+  },
+  {
     id: "dswarm",
     title: "dSwarm",
     description: "Decentralised swarm coordination platform built on blockchain infrastructure.",
@@ -191,7 +200,7 @@ export default function HomePage() {
                 <div className="absolute -left-12 top-4 w-8 h-8 pixel-border bg-primary text-primary-foreground flex items-center justify-center font-mono text-xs font-bold">
                   {String(index + 1).padStart(2, "0")}
                 </div>
-                <div className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light hover:scale-[1.01] transition-transform duration-200">
+                <div className="pixel-border bg-card text-card-foreground border-current component-grid hover:scale-[1.01] transition-transform duration-200">
                   <div className="border-b border-current/30 px-5 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <exp.icon className="h-5 w-5 text-primary shrink-0" />
@@ -260,7 +269,7 @@ export default function HomePage() {
                 key={project.id}
                 variants={cardVariant}
                 whileHover={{ scale: 1.025, rotate: 0.3 }}
-                className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light flex flex-col"
+                className="pixel-border bg-card text-card-foreground border-current component-grid flex flex-col"
               >
                 {/* Thumbnail */}
                 <ProjectThumb url={project.url} title={project.title} />

@@ -46,7 +46,7 @@ export default async function BlogPage() {
         {posts.map((post, index) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
             <div
-              className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light hover:scale-[1.02] transition-transform duration-200 cursor-pointer"
+              className="pixel-border bg-card text-card-foreground border-current component-grid hover:scale-[1.02] transition-transform duration-200 cursor-pointer"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="px-6 py-4 border-b border-current/30 flex flex-col md:flex-row md:items-center md:justify-between gap-3">

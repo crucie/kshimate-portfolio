@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <Card className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light animate max-w-md">
+      <Card className="pixel-border bg-card text-card-foreground border-current component-grid animate max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="font-mono text-2xl mb-4">404.ERROR</CardTitle>
           <div className="ascii-art font-mono text-sm mb-4">

@@ -99,7 +99,7 @@ export default function SettingsPage() {
 
       <div className="grid gap-6">
         {/* Performance Mode */}
-        <Card className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light animate">
+        <Card className="pixel-border bg-card text-card-foreground border-current component-grid animate">
           <CardHeader>
             <CardTitle className="font-mono text-xl flex items-center gap-2">
               <Monitor className="h-5 w-5" />
@@ -138,7 +138,7 @@ export default function SettingsPage() {
         </Card>
 
         {/* Animation Controls */}
-        <Card className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light animate">
+        <Card className="pixel-border bg-card text-card-foreground border-current component-grid animate">
           <CardHeader>
             <CardTitle className="font-mono text-xl flex items-center gap-2">
               <Zap className="h-5 w-5" />
@@ -158,7 +158,7 @@ export default function SettingsPage() {
               ].map(({ key, label }) => (
                 <div
                   key={key}
-                  className="flex items-center justify-between p-3 pixel-border bg-accent/20 component-grid dark:dark light"
+                  className="flex items-center justify-between p-3 pixel-border bg-accent/20 component-grid"
                 >
                   <span className="font-mono text-sm">{label}</span>
                   <button
@@ -180,7 +180,7 @@ export default function SettingsPage() {
         </Card>
 
         {/* Performance Controls */}
-        <Card className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light animate">
+        <Card className="pixel-border bg-card text-card-foreground border-current component-grid animate">
           <CardHeader>
             <CardTitle className="font-mono text-xl flex items-center gap-2">
               <Volume2 className="h-5 w-5" />
@@ -227,7 +227,7 @@ export default function SettingsPage() {
         </Card>
 
         {/* System Info */}
-        <Card className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light animate">
+        <Card className="pixel-border bg-card text-card-foreground border-current component-grid animate">
           <CardHeader>
             <CardTitle className="font-mono text-xl flex items-center gap-2">
               <Eye className="h-5 w-5" />
@@ -267,7 +267,7 @@ export default function SettingsPage() {
           <Button
             onClick={resetSettings}
             variant="outline"
-            className="pixel-border font-mono border-current hover:bg-accent component-grid dark:dark light"
+            className="pixel-border font-mono border-current hover:bg-accent component-grid"
           >
             <Settings className="h-4 w-4 mr-2" />
             RESET_TO_DEFAULTS.EXE

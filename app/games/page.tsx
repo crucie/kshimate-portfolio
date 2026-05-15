@@ -62,7 +62,7 @@ export default function GamesPage() {
       <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6" variants={container} initial="hidden" animate="show">
         {games.map((game) => (
           <motion.div key={game.id} variants={cardVariant} whileHover={{ scale: 1.02 }}
-            className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light flex flex-col">
+            className="pixel-border bg-card text-card-foreground border-current component-grid flex flex-col">
             <div className="border-b border-current/30 px-5 py-3 flex items-start justify-between gap-2">
               <div>
                 <div className="font-mono text-base font-bold">{game.title}</div>

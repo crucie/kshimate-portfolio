@@ -19,6 +19,7 @@
     --particle-count: 20;
     --grid-size: 38px;
     --grid-opacity: 0.18;
+    --grid-color: 75 85 99;
   }
 
   .dark {
@@ -33,6 +34,7 @@
     --accent: 15 28 55;
     --accent-foreground: 0 255 159;
     --border: 0 255 159;
+    --grid-color: 0 255 159;
   }
 
   /* ── Fire Red theme (light mode) ── */
@@ -48,6 +50,7 @@
     --accent: 235 220 195;
     --accent-foreground: 60 24 0;
     --border: 60 28 5;
+    --grid-color: 120 50 10;
   }
 
   /* ── Fire Red theme (dark mode) ── */
@@ -63,6 +66,7 @@
     --accent: 50 18 4;
     --accent-foreground: 245 200 140;
     --border: 160 60 8;
+    --grid-color: 220 70 0;
   }
 
   * {
@@ -178,16 +182,10 @@
 
   .component-grid:hover::before { opacity: var(--grid-opacity); }
 
-  .component-grid.light::before {
+  .component-grid::before {
     background-image:
-      linear-gradient(rgba(75,85,99,var(--grid-opacity)) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(75,85,99,var(--grid-opacity)) 1px, transparent 1px);
-  }
-
-  .component-grid.dark::before {
-    background-image:
-      linear-gradient(rgba(0,255,159,var(--grid-opacity)) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,159,var(--grid-opacity)) 1px, transparent 1px);
+      linear-gradient(rgb(var(--grid-color) / var(--grid-opacity)) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--grid-color) / var(--grid-opacity)) 1px, transparent 1px);
   }
 
   @keyframes gridMoveOptimized {

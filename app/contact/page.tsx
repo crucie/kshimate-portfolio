@@ -21,7 +21,7 @@ export default function ContactPage() {
       <p className="font-mono text-sm opacity-50 mb-10">// open for collaboration, gigs &amp; cool ideas</p>
 
       <motion.div
-        className="pixel-border bg-card text-card-foreground border-current component-grid dark:dark light"
+        className="pixel-border bg-card text-card-foreground border-current component-grid"
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
