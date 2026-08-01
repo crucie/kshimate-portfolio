@@ -86,6 +86,18 @@ export function monthLabels(weeks: ContribDay[][]): string[] {
   return labels
 }
 
+/** Tooltip text, e.g. "12 contributions on Jul 31, 2026". */
+export function describeDay(day: ContribDay): string {
+  const count =
+    day.count === 0 ? "No contributions" : day.count === 1 ? "1 contribution" : `${day.count} contributions`
+  const date = new Date(`${day.date}T00:00:00`).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })
+  return `${count} on ${date}`
+}
+
 export function countContributions(weeks: ContribDay[][]): number {
   return weeks.flat().reduce((sum, day) => sum + day.count, 0)
 }

@@ -1,5 +1,7 @@
 "use client"
 
+import { DayTooltip } from "@/components/day-tooltip"
+import { useDayTooltip } from "@/hooks/use-day-tooltip"
 import { useThemeFlags } from "@/hooks/use-theme-flags"
 import { getLevelColor, WEEKS, type ContribDay } from "@/lib/contributions"
 
@@ -20,6 +22,7 @@ export function ContributionStrip({
   error: boolean
 }) {
   const { isDark, isFireRed } = useThemeFlags()
+  const { gridRef, hovered, show, hide } = useDayTooltip()
   const accentColor = isFireRed ? (isDark ? "#ff6600" : "#c01c00") : isDark ? "#00ff9f" : "#1a6b3a"
 
   const status = error ? (
@@ -45,6 +48,8 @@ export function ContributionStrip({
 
       <div className="px-4 py-3">
         <div
+          ref={gridRef}
+          className="relative"
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${weeks.length || WEEKS}, 1fr)`,
@@ -53,6 +58,7 @@ export function ContributionStrip({
             gap: 2,
           }}
         >
+          {hovered && <DayTooltip day={hovered.day} x={hovered.x} />}
           {/* Empty cells hold the row height while the calendar is in flight */}
           {weeks.length
             ? weeks.map((week) =>
@@ -64,7 +70,8 @@ export function ContributionStrip({
                       backgroundColor: getLevelColor(day.level, isDark, isFireRed),
                       aspectRatio: "1",
                     }}
-                    title={`${day.date}: ${day.count} contributions`}
+                    onMouseEnter={show(day)}
+                    onMouseLeave={hide}
                   />
                 ))
               )
