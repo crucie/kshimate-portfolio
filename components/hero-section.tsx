@@ -6,8 +6,12 @@ import Image from "next/image"
 import Link from "next/link"
 import logo from "@/public/images/Logo.png"
 import { motion } from "framer-motion"
-import { Terminal, Gamepad2, Palette, ChevronDown, Mail } from "lucide-react"
+import { Terminal, Gamepad2, Palette, ChevronDown, Mail, Download } from "lucide-react"
 import { projects } from "@/lib/projects"
+
+// Served straight from Drive for now, so the resume can be swapped without a
+// redeploy. Move to /public once the PDF is finalised.
+const RESUME_URL = "https://drive.google.com/uc?export=download&id=1rF4exF1StlRqi6RbPR-xa9iBD487yx1Q"
 
 const roles = ["FULL_STACK_DEVELOPER.EXE", "INDIE_GAME_DEVELOPER.EXE", "ANIMATOR.EXE"]
 const badges = [
@@ -190,6 +194,18 @@ export function HeroSection() {
               <motion.a href="#projects" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="flex-1">
                 <button className="w-full pixel-border font-mono text-sm py-2 px-4 bg-primary text-primary-foreground border-current hover:bg-primary/80 transition-colors">
                   VIEW_WORK.EXE ▶
+                </button>
+              </motion.a>
+              <motion.a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="flex-1"
+              >
+                <button className="w-full pixel-border font-mono text-sm py-2 px-4 border-current bg-transparent hover:bg-accent/40 transition-colors flex items-center justify-center gap-2">
+                  <Download className="h-4 w-4" /> GET_RESUME.PDF
                 </button>
               </motion.a>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="flex-1">
