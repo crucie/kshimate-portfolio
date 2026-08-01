@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { HeroSection } from "@/components/hero-section"
 import { motion } from "framer-motion"
 import Link from "next/link"
@@ -54,7 +55,9 @@ const screenshotOf = (url: string) =>
   `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`
 
 function ProjectThumb({ url, image, title }: { url: string | null; image?: string; title: string }) {
+  const [failed, setFailed] = useState(false)
   const thumbSrc = image ?? (url ? screenshotOf(url) : null)
+
   if (!thumbSrc) {
     return (
       <div className="project-thumb flex items-center justify-center">
@@ -65,22 +68,19 @@ function ProjectThumb({ url, image, title }: { url: string | null; image?: strin
       </div>
     )
   }
+
+  if (failed) {
+    return (
+      <div className="project-thumb flex items-center justify-center">
+        <div className="font-mono text-xs opacity-30">{title.toUpperCase()}</div>
+      </div>
+    )
+  }
+
   return (
     <div className="project-thumb">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={thumbSrc}
-        alt={`${title} screenshot`}
-        loading="lazy"
-        onError={(e) => {
-          const el = e.currentTarget
-          el.style.display = "none"
-          const parent = el.parentElement
-          if (parent) {
-            parent.innerHTML = `<div class="w-full h-full flex items-center justify-center font-mono text-xs opacity-30">${title.toUpperCase()}</div>`
-          }
-        }}
-      />
+      <img src={thumbSrc} alt={`${title} screenshot`} loading="lazy" onError={() => setFailed(true)} />
     </div>
   )
 }
