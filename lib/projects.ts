@@ -31,7 +31,8 @@ export const projects: Project[] = [
     description: "Agentic prediction market on Avalanche — autonomous agents create, trade & resolve markets 24/7.",
     tech: ["Next.js", "TypeScript", "Avalanche", "Tailwind"],
     url: "https://app.clawxlab.xyz",
-    thumbUrl: "https://clawxlab.xyz",
+    // Landing page captured a few seconds in, past its intro animation.
+    thumbImage: "/images/clawx-landing.png",
     links: [
       { label: "LANDING", url: "https://clawxlab.xyz" },
       { label: "WAITLIST", url: "https://waitlist.clawxlab.xyz" },
