@@ -8,6 +8,8 @@ import logo from "@/public/images/Logo.png"
 import { motion } from "framer-motion"
 import { Terminal, Gamepad2, Palette, ChevronDown, Mail, Download } from "lucide-react"
 import { projects } from "@/lib/projects"
+import { ContributionStrip } from "@/components/contribution-strip"
+import { useContributions } from "@/hooks/use-contributions"
 
 // Served straight from Drive for now, so the resume can be swapped without a
 // redeploy. Move to /public once the PDF is finalised.
@@ -36,6 +38,7 @@ export function HeroSection() {
   const [dialogText, setDialogText] = useState("")
   const [dialogCharIdx, setDialogCharIdx] = useState(0)
   const [showCursor, setShowCursor] = useState(true)
+  const contributions = useContributions("crucie")
 
   // Role typewriter
   useEffect(() => {
@@ -225,6 +228,18 @@ export function HeroSection() {
             </div>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          <ContributionStrip
+            weeks={contributions.weeks}
+            loading={contributions.loading}
+            error={contributions.error}
+          />
+        </motion.div>
       </motion.div>
     </section>
   )
