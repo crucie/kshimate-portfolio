@@ -1,22 +1,31 @@
 "use client"
 
 import { useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { skillCategories } from "@/lib/skills"
-
-const gridVariants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.04 } },
-}
-
-const tileVariants = {
-  hidden: { opacity: 0, y: 10, scale: 0.92 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 380, damping: 26 } },
-}
 
 export function SkillTabs() {
   const [activeId, setActiveId] = useState(skillCategories[0].id)
   const active = skillCategories.find((c) => c.id === activeId) ?? skillCategories[0]
+  const reduceMotion = useReducedMotion()
+
+  // Everything still fades, so the panel swap stays legible without movement.
+  const gridVariants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: reduceMotion ? 0 : 0.04 } },
+  }
+
+  const tileVariants = reduceMotion
+    ? { hidden: { opacity: 0 }, show: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 10, scale: 0.92 },
+        show: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: { type: "spring" as const, stiffness: 380, damping: 26 },
+        },
+      }
 
   return (
     <div>
@@ -39,7 +48,9 @@ export function SkillTabs() {
                 <motion.span
                   layoutId="skill-tab-active"
                   className="absolute inset-0 bg-primary"
-                  transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                  transition={
+                    reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 34 }
+                  }
                 />
               )}
               <cat.icon className="relative h-4 w-4" strokeWidth={1.75} />
@@ -66,9 +77,9 @@ export function SkillTabs() {
             id={`panel-${active.id}`}
             role="tabpanel"
             aria-label={active.label}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
+            exit={{ opacity: 0, y: reduceMotion ? 0 : -8 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
             className="px-5 py-5"
           >
@@ -84,11 +95,11 @@ export function SkillTabs() {
                 <motion.li
                   key={tech.name}
                   variants={tileVariants}
-                  whileHover={{ y: -4 }}
+                  whileHover={reduceMotion ? undefined : { y: -4 }}
                   className="group pixel-border border-current bg-accent/20 px-3 py-4 flex flex-col items-center gap-2 cursor-default"
                 >
                   <tech.icon
-                    className="h-8 w-8 text-primary transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-6"
+                    className="h-8 w-8 text-primary transition-transform duration-200 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6"
                     strokeWidth={1.5}
                   />
                   <span className="font-mono text-[11px] text-center leading-tight">{tech.name}</span>
