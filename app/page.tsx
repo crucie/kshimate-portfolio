@@ -3,9 +3,7 @@
 import { useState } from "react"
 import { HeroSection } from "@/components/hero-section"
 import { motion } from "framer-motion"
-import Link from "next/link"
 import { Briefcase, FolderOpen, Github, ExternalLink, ChevronRight, MapPin, Calendar, Palette, Gamepad2, Clapperboard, type LucideIcon } from "lucide-react"
-import Image from "next/image"
 import { projects, statusClass } from "@/lib/projects"
 
 // ─── Experience Data ───────────────────────────────
