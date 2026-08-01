@@ -7,6 +7,7 @@ import Link from "next/link"
 import logo from "@/public/images/Logo.png"
 import { motion } from "framer-motion"
 import { Terminal, Gamepad2, Palette, ChevronDown, Mail } from "lucide-react"
+import { projects } from "@/lib/projects"
 
 const roles = ["FULL_STACK_DEVELOPER.EXE", "INDIE_GAME_DEVELOPER.EXE", "ANIMATOR.EXE"]
 const badges = [
@@ -173,7 +174,7 @@ export function HeroSection() {
             {/* Stats grid */}
             <div className="grid grid-cols-3 gap-2 mb-6">
               {[
-                { label: "PROJECTS", value: "7+" },
+                { label: "PROJECTS", value: `${projects.length}+` },
                 { label: "YEARS", value: "2+" },
                 { label: "COMMITS", value: "500+" },
               ].map(({ label, value }) => (
