@@ -190,9 +190,9 @@ export function HeroSection() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <motion.a href="#projects" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="flex-1">
-                <button className="w-full pixel-border font-mono text-sm py-2 px-4 bg-primary text-primary-foreground border-current hover:bg-primary/80 transition-colors">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
+              <motion.a href="#projects" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="flex-1 sm:min-w-[9rem]">
+                <button className="w-full pixel-border font-mono text-sm py-2 px-4 bg-primary text-primary-foreground border-current hover:bg-primary/80 transition-colors whitespace-nowrap">
                   VIEW_WORK.EXE ▶
                 </button>
               </motion.a>
@@ -202,15 +202,15 @@ export function HeroSection() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex-1"
+                className="flex-1 sm:min-w-[9rem]"
               >
-                <button className="w-full pixel-border font-mono text-sm py-2 px-4 border-current bg-transparent hover:bg-accent/40 transition-colors flex items-center justify-center gap-2">
+                <button className="w-full pixel-border font-mono text-sm py-2 px-4 border-current bg-transparent hover:bg-accent/40 transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
                   <Download className="h-4 w-4" /> GET_RESUME.PDF
                 </button>
               </motion.a>
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="flex-1">
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="flex-1 sm:min-w-[9rem]">
                 <Link href="/contact">
-                  <button className="w-full pixel-border font-mono text-sm py-2 px-4 border-current bg-transparent hover:bg-accent/40 transition-colors flex items-center justify-center gap-2">
+                  <button className="w-full pixel-border font-mono text-sm py-2 px-4 border-current bg-transparent hover:bg-accent/40 transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
                     <Mail className="h-4 w-4" /> CONTACT.SH
                   </button>
                 </Link>
