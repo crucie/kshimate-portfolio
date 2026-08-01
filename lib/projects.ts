@@ -12,6 +12,8 @@ export type Project = {
   status: ProjectStatus
   /** Screenshot source, when the page worth showing isn't the one `url` points at. */
   thumbUrl?: string
+  /** Pre-captured thumbnail, for sites the live screenshot service can't render. */
+  thumbImage?: string
   /** Further deployments of the same project, listed under the main live link. */
   links?: ProjectLink[]
 }

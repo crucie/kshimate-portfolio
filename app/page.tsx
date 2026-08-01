@@ -50,8 +50,12 @@ const experiences: Experience[] = [
   },
 ]
 
-function ProjectThumb({ url, title }: { url: string | null; title: string }) {
-  if (!url) {
+const screenshotOf = (url: string) =>
+  `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`
+
+function ProjectThumb({ url, image, title }: { url: string | null; image?: string; title: string }) {
+  const thumbSrc = image ?? (url ? screenshotOf(url) : null)
+  if (!thumbSrc) {
     return (
       <div className="project-thumb flex items-center justify-center">
         <div className="font-mono text-xs opacity-30 text-center">
@@ -61,7 +65,6 @@ function ProjectThumb({ url, title }: { url: string | null; title: string }) {
       </div>
     )
   }
-  const thumbSrc = `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`
   return (
     <div className="project-thumb">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -190,7 +193,11 @@ export default function HomePage() {
                 className="pixel-border bg-card text-card-foreground border-current component-grid flex flex-col"
               >
                 {/* Thumbnail */}
-                <ProjectThumb url={project.thumbUrl ?? project.url} title={project.title} />
+                <ProjectThumb
+                  url={project.thumbUrl ?? project.url}
+                  image={project.thumbImage}
+                  title={project.title}
+                />
 
                 {/* Info */}
                 <div className="border-b border-current/30 px-4 py-3 flex items-start justify-between gap-2">
