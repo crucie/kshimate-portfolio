@@ -1,32 +1,38 @@
 "use client"
 
 import { useThemeFlags } from "@/hooks/use-theme-flags"
-import { countContributions, getLevelColor, type ContribDay } from "@/lib/contributions"
-
-const STRIP_WEEKS = 26
+import { getLevelColor, WEEKS, type ContribDay } from "@/lib/contributions"
 
 /**
- * Recent slice of the contribution calendar. Data is passed in so the page can
- * fetch once and share it with whatever else needs the numbers.
+ * Bare contribution calendar for the hero: no axis labels, legend or tooltip,
+ * so it stays a slim strip. Data is passed in so the page fetches once and
+ * shares it with whatever else needs the numbers.
  */
 export function ContributionStrip({
   weeks,
+  total,
   loading,
   error,
 }: {
   weeks: ContribDay[][]
+  total: number
   loading: boolean
   error: boolean
 }) {
   const { isDark, isFireRed } = useThemeFlags()
   const accentColor = isFireRed ? (isDark ? "#ff6600" : "#c01c00") : isDark ? "#00ff9f" : "#1a6b3a"
 
-  const columns = weeks.slice(-STRIP_WEEKS)
-  const status = error
-    ? "activity unavailable"
-    : loading
-      ? "SYNCING..."
-      : `${countContributions(columns)} contributions · last ${columns.length} weeks`
+  const status = error ? (
+    "activity unavailable"
+  ) : loading ? (
+    "SYNCING..."
+  ) : (
+    <>
+      {total} contributions
+      {/* Dropped on phones, where the header has no room for it */}
+      <span className="hidden sm:inline"> · last 12 months</span>
+    </>
+  )
 
   return (
     <div className="mt-4 pixel-border bg-card text-card-foreground border-current component-grid">
@@ -41,15 +47,15 @@ export function ContributionStrip({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: `repeat(${columns.length || STRIP_WEEKS}, 1fr)`,
+            gridTemplateColumns: `repeat(${weeks.length || WEEKS}, 1fr)`,
             gridTemplateRows: "repeat(7, 1fr)",
             gridAutoFlow: "column",
             gap: 2,
           }}
         >
           {/* Empty cells hold the row height while the calendar is in flight */}
-          {columns.length
-            ? columns.map((week) =>
+          {weeks.length
+            ? weeks.map((week) =>
                 week.map((day) => (
                   <div
                     key={day.date}
@@ -62,7 +68,7 @@ export function ContributionStrip({
                   />
                 ))
               )
-            : Array.from({ length: STRIP_WEEKS * 7 }).map((_, i) => (
+            : Array.from({ length: WEEKS * 7 }).map((_, i) => (
                 <div
                   key={i}
                   style={{ backgroundColor: getLevelColor(0, isDark, isFireRed), aspectRatio: "1" }}

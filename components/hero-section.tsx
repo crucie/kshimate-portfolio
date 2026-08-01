@@ -239,6 +239,7 @@ export function HeroSection() {
         >
           <ContributionStrip
             weeks={contributions.weeks}
+            total={contributions.total}
             loading={contributions.loading}
             error={contributions.error}
           />
