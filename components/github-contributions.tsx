@@ -1,14 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { DayTooltip } from "@/components/day-tooltip"
 import { useContributions } from "@/hooks/use-contributions"
+import { useDayTooltip } from "@/hooks/use-day-tooltip"
 import { useThemeFlags } from "@/hooks/use-theme-flags"
-import { getLevelColor, monthLabels, type ContribDay } from "@/lib/contributions"
+import { getLevelColor, monthLabels } from "@/lib/contributions"
 
 export function GithubContributions({ username = "crucie" }: { username?: string }) {
   const { weeks, total, loading, error } = useContributions(username)
   const { isDark, isFireRed } = useThemeFlags()
-  const [hoveredDay, setHoveredDay] = useState<ContribDay | null>(null)
+  const { gridRef, hovered, show, hide } = useDayTooltip()
 
   const accentColor = isFireRed ? (isDark ? "#ff6600" : "#c01c00") : isDark ? "#00ff9f" : "#1a6b3a"
   const months = monthLabels(weeks)
@@ -65,6 +66,8 @@ export function GithubContributions({ username = "crucie" }: { username?: string
                 </div>
 
                 <div
+                  ref={gridRef}
+                  className="relative"
                   style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${weeks.length}, 1fr)`,
@@ -73,6 +76,7 @@ export function GithubContributions({ username = "crucie" }: { username?: string
                     gap: 2,
                   }}
                 >
+                  {hovered && <DayTooltip day={hovered.day} x={hovered.x} />}
                   {weeks.map((week) =>
                     week.map((day) => (
                       <div
@@ -82,22 +86,14 @@ export function GithubContributions({ username = "crucie" }: { username?: string
                           backgroundColor: getLevelColor(day.level, isDark, isFireRed),
                           aspectRatio: "1",
                         }}
-                        onMouseEnter={() => setHoveredDay(day)}
-                        onMouseLeave={() => setHoveredDay(null)}
-                        title={`${day.date}: ${day.count} contributions`}
+                        onMouseEnter={show(day)}
+                        onMouseLeave={hide}
                       />
                     ))
                   )}
                 </div>
               </div>
             </div>
-
-            {/* Tooltip */}
-            {hoveredDay && (
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 font-mono text-xs px-2 py-1 pixel-border bg-card border-current pointer-events-none whitespace-nowrap z-20">
-                {hoveredDay.date}: {hoveredDay.count} contributions
-              </div>
-            )}
 
             {/* Legend */}
             <div className="flex items-center gap-1 mt-3 justify-end">
