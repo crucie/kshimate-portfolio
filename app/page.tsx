@@ -190,7 +190,7 @@ export default function HomePage() {
                 className="pixel-border bg-card text-card-foreground border-current component-grid flex flex-col"
               >
                 {/* Thumbnail */}
-                <ProjectThumb url={project.url} title={project.title} />
+                <ProjectThumb url={project.thumbUrl ?? project.url} title={project.title} />
 
                 {/* Info */}
                 <div className="border-b border-current/30 px-4 py-3 flex items-start justify-between gap-2">

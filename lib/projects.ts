@@ -8,6 +8,8 @@ export type Project = {
   url: string | null
   github: string
   status: ProjectStatus
+  /** Screenshot source, when the page worth showing isn't the one `url` points at. */
+  thumbUrl?: string
 }
 
 export const statusClass: Record<ProjectStatus, string> = {
