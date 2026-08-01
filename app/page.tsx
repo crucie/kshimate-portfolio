@@ -194,7 +194,7 @@ export default function HomePage() {
               >
                 {/* Thumbnail */}
                 <ProjectThumb
-                  url={project.thumbUrl ?? project.url}
+                  url={project.url}
                   image={project.thumbImage}
                   title={project.title}
                 />
