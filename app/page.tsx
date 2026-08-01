@@ -231,6 +231,25 @@ export default function HomePage() {
                     </button>
                   )}
                 </div>
+
+                {/* Additional deployments */}
+                {project.links && project.links.length > 0 && (
+                  <div className="px-4 pb-3 -mt-1 flex flex-wrap gap-2">
+                    {project.links.map((link) => (
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 basis-[calc(50%-0.25rem)]"
+                      >
+                        <button className="w-full pixel-border font-mono text-[10px] py-1 bg-primary/10 border-current hover:bg-accent/40 transition-colors flex items-center justify-center gap-1">
+                          <ExternalLink className="h-2.5 w-2.5" /> {link.label}
+                        </button>
+                      </a>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             ))}
           </motion.div>

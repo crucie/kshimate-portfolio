@@ -1,5 +1,7 @@
 export type ProjectStatus = "LIVE" | "WIP" | "ARCHIVED"
 
+export type ProjectLink = { label: string; url: string }
+
 export type Project = {
   id: string
   title: string
@@ -10,6 +12,8 @@ export type Project = {
   status: ProjectStatus
   /** Screenshot source, when the page worth showing isn't the one `url` points at. */
   thumbUrl?: string
+  /** Further deployments of the same project, listed under the main live link. */
+  links?: ProjectLink[]
 }
 
 export const statusClass: Record<ProjectStatus, string> = {
