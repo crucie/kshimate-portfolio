@@ -5,14 +5,14 @@ import type React from "react"
 import { useState, useCallback } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Moon, Sun, Settings, Gamepad2, BookOpen, Zap, MessageSquare, Home, Globe, Flame } from "lucide-react"
+import { Moon, Sun, Settings, Zap, MessageSquare, Home, Globe, Flame } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type { Theme } from "@/components/client-layout"
 
+// GAMES and BLOG are parked until their pages are ready; the routes redirect
+// home from next.config.mjs, so re-enabling means restoring both places.
 const navItems = [
   { href: "/", label: "HOME", icon: Home },
-  { href: "/games", label: "GAMES", icon: Gamepad2 },
-  { href: "/blog", label: "BLOG", icon: BookOpen },
   { href: "/skills", label: "SKILLS", icon: Zap },
   { href: "/contact", label: "CONTACT", icon: MessageSquare },
 ]
