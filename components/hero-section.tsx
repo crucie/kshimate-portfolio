@@ -183,7 +183,10 @@ export function HeroSection() {
               {[
                 { label: "PROJECTS", value: `${projects.length}+` },
                 { label: "YEARS", value: "2+" },
-                { label: "COMMITS", value: "500+" },
+                {
+                  label: "CONTRIBS",
+                  value: contributions.error ? "—" : contributions.loading ? "..." : `${contributions.total}`,
+                },
               ].map(({ label, value }) => (
                 <div key={label} className="text-center pixel-border p-2 bg-accent/20">
                   <div className="font-mono text-lg font-bold text-primary">{value}</div>
