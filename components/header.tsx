@@ -9,6 +9,16 @@ import { Moon, Sun, Settings, Gamepad2, BookOpen, Zap, MessageSquare, Home, Glob
 import { Button } from "@/components/ui/button"
 import type { Theme } from "@/components/client-layout"
 
+const navItems = [
+  { href: "/", label: "HOME", icon: Home },
+  { href: "/games", label: "GAMES", icon: Gamepad2 },
+  { href: "/blog", label: "BLOG", icon: BookOpen },
+  { href: "/skills", label: "SKILLS", icon: Zap },
+  { href: "/contact", label: "CONTACT", icon: MessageSquare },
+]
+
+const swipeOrder = navItems.map((item) => item.href)
+
 interface HeaderProps {
   darkMode: boolean
   setDarkMode: (v: boolean) => void
@@ -24,22 +34,6 @@ export function Header({ darkMode, setDarkMode, theme, setTheme, currentPath }: 
 
   const isHome = currentPath === "/"
 
-  const navLinks = [
-    { href: "/", label: "HOME" },
-    { href: "/games", label: "GAMES" },
-    { href: "/blog", label: "BLOG" },
-    { href: "/skills", label: "SKILLS" },
-    { href: "/contact", label: "CONTACT" },
-  ]
-
-  const mobileIcons = [
-    { href: "/", icon: Home },
-    { href: "/games", icon: Gamepad2 },
-    { href: "/blog", icon: BookOpen },
-    { href: "/skills", icon: Zap },
-    { href: "/contact", icon: MessageSquare },
-  ]
-
   const minSwipeDistance = 50
   const onTouchStart = (e: React.TouchEvent) => { setTouchEnd(null); setTouchStart(e.targetTouches[0].clientX) }
   const onTouchMove = (e: React.TouchEvent) => { setTouchEnd(e.targetTouches[0].clientX) }
@@ -47,10 +41,9 @@ export function Header({ darkMode, setDarkMode, theme, setTheme, currentPath }: 
     if (!touchStart || !touchEnd) return
     const dist = touchStart - touchEnd
     if (Math.abs(dist) < minSwipeDistance) return
-    const pages = ["/", "/games", "/blog", "/skills", "/contact"]
-    const ci = pages.indexOf(currentPath)
-    if (dist > 0 && ci < pages.length - 1) router.push(pages[ci + 1])
-    else if (dist < 0 && ci > 0) router.push(pages[ci - 1])
+    const ci = swipeOrder.indexOf(currentPath)
+    if (dist > 0 && ci < swipeOrder.length - 1) router.push(swipeOrder[ci + 1])
+    else if (dist < 0 && ci > 0) router.push(swipeOrder[ci - 1])
   }, [touchStart, touchEnd, currentPath, router])
 
   const isActive = (href: string) => currentPath === href || (href === "/" && currentPath === "/")
@@ -90,7 +83,7 @@ export function Header({ darkMode, setDarkMode, theme, setTheme, currentPath }: 
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-4">
-              {navLinks.map((link) => (
+              {navItems.map((link) => (
                 <Link key={link.href} href={link.href}
                   className={`font-mono text-xs uppercase tracking-wider transition-all duration-200 hover:scale-110 pixel-button ${isActive(link.href) ? activeClass : inactiveClass}`}
                 >
@@ -130,7 +123,7 @@ export function Header({ darkMode, setDarkMode, theme, setTheme, currentPath }: 
       {/* Mobile Nav */}
       <div className={`md:hidden border-b-2 pixel-border ${darkMode ? `bg-gray-900 ${borderColor}` : `bg-white ${borderColor}`}`}>
         <div className="container mx-auto px-4 py-2 flex justify-center space-x-1">
-          {mobileIcons.map(({ href, icon: Icon }) => (
+          {navItems.map(({ href, icon: Icon }) => (
             <Link key={href} href={href}
               className={`p-2 transition-all hover:scale-110 touch-target ${isActive(href) ? activeClass : inactiveClass}`}
             >
