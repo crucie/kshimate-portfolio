@@ -38,6 +38,15 @@ export const projects: Project[] = [
     status: "WIP",
   },
   {
+    id: "ticketchain",
+    title: "TicketChain",
+    description: "Enterprise NFT ticketing on the MST blockchain — multi-tenant SaaS with resale market & scanner PWA.",
+    tech: ["Next.js", "Express", "PostgreSQL", "Hardhat", "Solidity"],
+    url: "https://ticketchain.kshimate.space",
+    github: "https://github.com/crucie/ticketChain",
+    status: "LIVE",
+  },
+  {
     id: "krexon",
     title: "Krexon",
     description: "Swap loyalty points on Solana — hotel points, airline miles & retail credits in one place.",
