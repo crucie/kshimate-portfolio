@@ -54,6 +54,7 @@ const screenshotOf = (url: string) =>
 
 function ProjectThumb({ url, image, title }: { url: string | null; image?: string; title: string }) {
   const [failed, setFailed] = useState(false)
+  const [loaded, setLoaded] = useState(false)
   const thumbSrc = image ?? (url ? screenshotOf(url) : null)
 
   if (!thumbSrc) {
@@ -77,8 +78,20 @@ function ProjectThumb({ url, image, title }: { url: string | null; image?: strin
 
   return (
     <div className="project-thumb">
+      {/* Sits behind the image, which paints over it once the capture arrives. */}
+      {!loaded && (
+        <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] opacity-30">
+          LOADING...
+        </div>
+      )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={thumbSrc} alt={`${title} screenshot`} loading="lazy" onError={() => setFailed(true)} />
+      <img
+        src={thumbSrc}
+        alt={`${title} screenshot`}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        onError={() => setFailed(true)}
+      />
     </div>
   )
 }
