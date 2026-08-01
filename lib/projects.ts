@@ -24,6 +24,20 @@ export const statusClass: Record<ProjectStatus, string> = {
 
 export const projects: Project[] = [
   {
+    id: "clawx",
+    title: "ClawX",
+    description: "Agentic prediction market on Avalanche — autonomous agents create, trade & resolve markets 24/7.",
+    tech: ["Next.js", "TypeScript", "Avalanche", "Tailwind"],
+    url: "https://app.clawxlab.xyz",
+    thumbUrl: "https://clawxlab.xyz",
+    links: [
+      { label: "LANDING", url: "https://clawxlab.xyz" },
+      { label: "WAITLIST", url: "https://waitlist.clawxlab.xyz" },
+    ],
+    github: "https://github.com/ClawXLabs",
+    status: "WIP",
+  },
+  {
     id: "krexon",
     title: "Krexon",
     description: "Swap loyalty points on Solana — hotel points, airline miles & retail credits in one place.",
